@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<HTML>
+
+<HEAD>
+    <META charset="UTF-8">
+    <TITLE>KAKAO_LOCAL</TITLE>
+</HEAD>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous">
+    </script>
+
+<script>
+    // $.ajax({
+    //     url: 'https://dapi.kakao.com/v2/local/search/address.json?query=' + encodeURIComponent('분당구 수내동 118-12'),
+    //     headers: { 'Authorization': 'KakaoAK 790511b62f64a874d554a102b02d3275' },
+    //     type: 'GET'
+    // }).done(function (data) {
+    //     console.log(data.documents[0]);
+    // });
+    function localdata() {
+
+
+        // var inputText = $("#inputTextbox").val();
+        var inputText = new String($(".search__input").val());
+        $.ajax({
+            url: 'https://dapi.kakao.com/v2/local/search/address.json?query=' +inputText,
+            headers: { 'Authorization': 'KakaoAK 790511b62f64a874d554a102b02d3275' },
+            type: 'GET'
+        }).done(function (data) {
+            console.log(data.documents[0]);
+            if(inputText != "")
+            {
+                $(".search__container").append("<b><div class='address_name' >"+data.documents[0].address_name+"</div></b>");
+                $(".search__container").append("<b><div class='address_name' >"+data.documents[1].address_name+"</div></b>");
+                $(".search__container").append("<b><div class='address_name' >"+data.documents[2].address_name+"</div></b>");
+                
+    
+
+            }
+        });
+
+    }
+</script>
+<STYLE>
+    body {
+        width: 430px;
+        margin: 0 auto;
+        background-color: #F7CAC9;
+        font-family: 'Raleway', sans-serif;
+    }
+    .address_name{
+       display: block;
+    }
+    .search{
+        width: 300px;
+        height: 200px;
+        background-color: lightgray;
+        text-align: center;
+        line-height: 200px;
+
+    }
+    .inputbox{
+        float: left;
+        vertical-align: middle;
+    }
+    .buttonimg{
+        float: left;
+        width: 30px;
+        height: 30px;     
+        border: none;  
+        background-color: #F7CAC9;
+    }
+    #buttonbox{
+        background-color: #F7CAC9;
+        border: 1px;
+    }
+    Img {
+        width: 100%;
+        height: 100%;
+        
+    }
+</STYLE>
+
+<BODY>
+    <!-- <div class="search">
+        <input type="text" id="inputTextBox">
+        <input type="button" value="가져오기" onclick="localdata()">
+    </div> -->
+    <div class="search__container">
+        <p class="search__title">
+            Go ahead, search your address
+        </p>
+        <div class="inputbox">
+            <input class="search__input" type="text" placeholder="Search" id="inputTextBox">
+        </div>
+       
+        <div class="buttonimg">
+            <button type="button" id="buttonbox" onclick="localdata()">
+                <img src="searching.png">
+            </button>
+        </div>
+        <br></br>
+        
+    </div>
+
+
+</BODY>
+
+</HTML>
